@@ -24,11 +24,12 @@
 <div id="app">
     <div class="ui container">
         <div class="ui dividing header">Image uploader</div>
-        <form class="ui form {{ session('status') }}" method="post" enctype="multipart/form-data" action="{{route('index.post')}}">
+        <form class="ui form {{ session('status') }}" method="post" enctype="multipart/form-data"
+              action="{{route('index.post')}}">
             @csrf
             <div class="field">
                 <label>Please, select the images you want to upload</label>
-                <input required type="file" multiple accept="image/png">
+                <input name="image" required type="file" accept="image/png">
             </div>
             <button role="button" class="ui secondary button" type="submit">Post images</button>
             <div class="ui success message">
@@ -41,14 +42,16 @@
         <div class="ui dividing header">Gallery (uploaded images)</div>
         <div>
             <div class="ui three column grid">
-                <div class="column">
-                    <div class="fluid ui card">
-                        <img src="https://via.placeholder.com/300?text=1613157873032" class="ui image">
-                        <div class="content">
-                            <div class="header">https://via.placeholder.com/300?text=1613157873032</div>
+                @foreach($images as $image)
+                    <div class="column">
+                        <div class="fluid ui card">
+                            <img src="{{$image}}" class="ui image" alt="image uploaded">
+                            <div class="content">
+                                <div class="header">{{$image}}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
